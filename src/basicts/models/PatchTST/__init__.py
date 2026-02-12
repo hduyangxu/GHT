@@ -1,5 +1,7 @@
 from .arch import (PatchTSTBackbone, PatchTSTForClassification,
-                   PatchTSTForForecasting, PatchTSTForReconstruction)
+                   PatchTSTForForecasting, PatchTSTForReconstruction,
+                   PatchTSTBackboneGHT, PatchTSTForClassificationGHT,
+                   PatchTSTForForecastingGHT)
 from .config.patchtst_config import PatchTSTConfig
 
 __all__ = [
@@ -8,4 +10,7 @@ __all__ = [
     "PatchTSTConfig",
     "PatchTSTForClassification",
     "PatchTSTForReconstruction",
+    "PatchTSTBackboneGHT",
+    "PatchTSTForForecastingGHT",
+    "PatchTSTForClassificationGHT",
     ]

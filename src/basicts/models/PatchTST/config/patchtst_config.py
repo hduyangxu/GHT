@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Literal
+from typing import Literal, Optional
 
 from basicts.configs import BasicTSModelConfig
 
@@ -35,3 +35,23 @@ class PatchTSTConfig(BasicTSModelConfig):
     decomp: bool = field(default=False, metadata={"help": "Whether to use decomposition."})
     moving_avg: int = field(default=25, metadata={"help": "Moving average window size for decomposition."})
     output_attentions: bool = field(default=False, metadata={"help": "Whether to output attention weights."})
+
+    # GHT (Graph-Guided Hierarchical Tokenization)
+    use_ght: bool = field(default=False, metadata={"help": "Whether to enable GHT tokenizer."})
+    ght_ratio: float = field(default=1.0, metadata={"help": "Pooling ratio for GHT."})
+    ght_k: int = field(default=8, metadata={"help": "k for mutual-kNN graph."})
+    ght_assign_hidden: int = field(default=128, metadata={"help": "Hidden size for assignment MLP."})
+    ght_use_gnn: bool = field(default=True, metadata={"help": "Whether to use neighborhood aggregation for assignment."})
+    ght_local_window: Optional[int] = field(default=None, metadata={"help": "Local window size for assignment mask."})
+    ght_temperature: float = field(default=1.0, metadata={"help": "Softmax temperature for assignment."})
+    ght_add_self: bool = field(default=False, metadata={"help": "Whether to add self-loop in graph."})
+    ght_mutual: bool = field(default=True, metadata={"help": "Whether to use mutual-kNN adjacency."})
+    ght_link_weight: float = field(default=0.1, metadata={"help": "Link loss weight."})
+    ght_entropy_weight: float = field(default=0.01, metadata={"help": "Entropy loss weight."})
+    ght_graph_mode: Literal["rule", "ema"] = field(default="rule", metadata={"help": "Graph mode for GHT."})
+    ght_ema_decay: float = field(default=0.99, metadata={"help": "EMA decay for teacher tokens."})
+    ght_ema_update_every: int = field(default=1, metadata={"help": "EMA update interval (steps)."})
+    ght_dual_stream: bool = field(default=False, metadata={"help": "Whether to enable dual-stream GHT."})
+    ght_ratio_trend: float = field(default=0.125, metadata={"help": "Pooling ratio for trend stream."})
+    ght_ratio_residual: float = field(default=0.5, metadata={"help": "Pooling ratio for residual stream."})
+    ght_fuse: Literal["concat", "sum"] = field(default="concat", metadata={"help": "Fusion method for dual stream tokens."})
